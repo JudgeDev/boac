@@ -23,10 +23,11 @@ export_file_name = 'export.pkl'
 classes = ['black', 'grizzly', 'teddys']
 path = Path(__file__).parent
 
-app = Starlette()
+# create instance of ASGI app
+app = Starlette(debug=True)
 # allow cross-origin requests from browsers
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
-app.mount('/static', StaticFiles(directory='static'))  # needed to add path for local env
+app.mount('/static', StaticFiles(directory='static'), name='static')  # needed to add path for local env
 
 async def download_file(url, dest):
     if dest.exists(): return
@@ -54,10 +55,9 @@ async def setup_learner():
 
 
 loop = asyncio.get_event_loop()
-#tasks = [asyncio.ensure_future(setup_learner())]
-#learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
+tasks = [asyncio.ensure_future(setup_learner())]
+learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
 loop.close()
-
 
 @app.route('/')
 async def homepage(request):
@@ -67,6 +67,13 @@ async def homepage(request):
 
     #html_file = path / 'view' / 'index.html'
     #return HTMLResponse(html_file.open(encoding="utf-8").read())  # need to add encoding for local env
+
+
+@app.route('/classify')
+async def classify(request):
+    template = 'classify.html'
+    context = {"request": request}
+    return templates.TemplateResponse(template, context)
 
 
 @app.route('/analyze', methods=['POST'])

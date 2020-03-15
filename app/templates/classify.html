@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Custom styles for this template -->
+<link href="{{ url_for('static', path='/css/style.css') }}" rel="stylesheet">
+
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Classify Bear Images 🐻</h1>
+            <p></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-10">
+                <h2>Use images of <strong>teddy</strong> bears, <strong>black</strong> bears, <strong>grizzly</strong>
+                    bears, or
+                    all three!</h2>
+                <div class='content'>
+                    <div class='no-display'>
+                        <input id='file-input'
+                               class='no-display'
+                               type='file'
+                               name='file'
+                               accept='image/*'
+                               onchange='showPicked(this)'>
+                    </div>
+                    <button class='choose-file-button' type='button' onclick='showPicker()'>Select Image</button>
+                    <div class='upload-label'>
+                        <label id='upload-label'>No file chosen</label>
+                    </div>
+                    <div>
+                        <img id='image-picked' class='no-display' alt='Chosen Image' height='200'>
+                    </div>
+                    <div class='analyze'>
+                        <p><a id='analyze-button' class="btn btn-secondary" onclick='analyze()' role="button">Analyze
+                            &raquo;</a></p>
+
+                    </div>
+                    <div class='result-label'>
+                        <label id='result-label'></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}

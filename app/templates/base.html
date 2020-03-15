@@ -9,10 +9,10 @@
     <title>Jumbotron Template for Bootstrap</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="static/css/jumbotron.css" rel="stylesheet">
+    <link href="{{ url_for('static', path='/css/jumbotron.css') }}" rel="stylesheet">
   </head>
 
   <body>
@@ -53,14 +53,15 @@
     {% block content %}{% endblock %}
 
     <footer class="container">
-      <p>&copy; Company 2017-2018</p>
+      <p>&copy; BoAC 2020</p>
     </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="static/js/jquery-3.3.1.slim.min.js"></script>
-    <script src="static/js/popper.min.js"></script>
-    <script src="static/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', path='/js/jquery-3.3.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/client.js') }}"></script>
   </body>
 </html>
