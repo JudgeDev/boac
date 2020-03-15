@@ -17,7 +17,7 @@ path = Path(__file__).parent
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
-app.mount('/static', StaticFiles(directory='app/static'))
+app.mount('/static', StaticFiles(directory=path/'static'))  # needed to add path for local env
 
 
 async def download_file(url, dest):
@@ -30,8 +30,10 @@ async def download_file(url, dest):
 
 
 async def setup_learner():
+    print("Waiting for learner file")
     await download_file(export_file_url, path / export_file_name)
     try:
+        print("Trying to load learner")
         learn = load_learner(path, export_file_name)
         return learn
     except RuntimeError as e:
@@ -52,7 +54,7 @@ loop.close()
 @app.route('/')
 async def homepage(request):
     html_file = path / 'view' / 'index.html'
-    return HTMLResponse(html_file.open().read())
+    return HTMLResponse(html_file.open(encoding="utf-8").read())  # need to add encoding for local env
 
 
 @app.route('/analyze', methods=['POST'])
