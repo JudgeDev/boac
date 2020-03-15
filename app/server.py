@@ -27,7 +27,7 @@ path = Path(__file__).parent
 app = Starlette(debug=True)
 # allow cross-origin requests from browsers
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
-app.mount('/static', StaticFiles(directory='static'), name='static')  # needed to add path for local env
+app.mount('/static', StaticFiles(directory='app/static'), name='static')  # needed to add path for local env
 
 async def download_file(url, dest):
     if dest.exists(): return
